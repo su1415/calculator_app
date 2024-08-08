@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 function ButtonPanel() {
   const buttons = [
@@ -14,9 +15,10 @@ function ButtonPanel() {
       { buttons.map((row, rowIndex) => (
         <div key={ rowIndex } className="button-row">
           { row.map((buttonName, colIndex) => (
-            <button key={ rowIndex * row.length + colIndex }>
-              { buttonName }
-            </button>
+            <Button
+              key={ rowIndex * row.length + colIndex }
+              name={ buttonName }
+            />
           )) }
         </div>
       )) }
