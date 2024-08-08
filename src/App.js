@@ -19,43 +19,35 @@ function App() {
     return right;
   };
 
-  function handleClick(buttonName) {
-    if (buttonName === "") {
-      return;
-    }
+  const handleClear = () => {
+    setDisplayValue("0");
+    setCurrentValue("0");
+    setOperator(null);
+    setNextValue(null);
+  };
 
-    if (buttonName === "C") {
-      setDisplayValue("0");
-      setCurrentValue("0");
-      setOperator(null);
-      setNextValue(null);
-      return;
-    }
+  const handleEqual = () => {
+    if (!currentValue || !operator || !nextValue) { return }
+    const newDisplayValue = performOperation(currentValue, nextValue, operator);
+    setDisplayValue(newDisplayValue);
+    setCurrentValue(newDisplayValue);
+    setOperator(null);
+    setNextValue(null);
+  };
 
-    if (buttonName === "=") {
-      if (!currentValue || !operator || !nextValue) { return }
-      const newDisplayValue = performOperation(currentValue, nextValue, operator);
-      setDisplayValue(newDisplayValue);
-      setCurrentValue(newDisplayValue);
-      setOperator(null);
-      setNextValue(null);
-      return;
-    }
-
-    if (["+", "-", "*", "/"].includes(buttonName)) {
-      if (!currentValue || !operator || !nextValue) {
-        setOperator(buttonName);
-        return;
-      }
-      const newDisplayValue = performOperation(currentValue, nextValue, operator);
-      setDisplayValue(newDisplayValue);
-      setCurrentValue(newDisplayValue);
+  const handleOperator = (buttonName) => {
+    if (!currentValue || !operator || !nextValue) {
       setOperator(buttonName);
-      setNextValue(null);
       return;
     }
+    const newDisplayValue = performOperation(currentValue, nextValue, operator);
+    setDisplayValue(newDisplayValue);
+    setCurrentValue(newDisplayValue);
+    setOperator(buttonName);
+    setNextValue(null);
+  };
 
-    // 0-9
+  const handleNumber = (buttonName) => {
     if (operator) {
       const newNextValue = (nextValue === null || nextValue ==="0") ? buttonName : nextValue + buttonName;
       setNextValue(newNextValue);
@@ -65,7 +57,21 @@ function App() {
       setCurrentValue(newCurrentValue);
       setDisplayValue(newCurrentValue);
     }
-  }
+  };
+
+  const handleClick = (buttonName) => {
+    if (buttonName === "") {
+      return;
+    } else if (buttonName === "C") {
+      handleClear();
+    } else if (buttonName === "=") {
+      handleEqual();
+    } else if (["+", "-", "*", "/"].includes(buttonName)) {
+      handleOperator(buttonName);
+    } else {
+      handleNumber(buttonName);
+    }
+  };
 
   return (
     <div className="App">
