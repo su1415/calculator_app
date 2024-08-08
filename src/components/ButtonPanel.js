@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-function ButtonPanel() {
+function ButtonPanel({ onButtonClick }) {
   const buttons = [
     ["C", "", "", "/"],
     ["7", "8", "9", "*"],
@@ -18,6 +18,7 @@ function ButtonPanel() {
             <Button
               key={ rowIndex * row.length + colIndex }
               name={ buttonName }
+              onButtonClick={ onButtonClick }
             />
           )) }
         </div>
