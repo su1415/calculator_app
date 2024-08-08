@@ -27,6 +27,7 @@ function App() {
   };
 
   const handleEqual = () => {
+    // Note: 3つ全てがtrueでなければreturn を明記するため 常にtrueである currentValue も記載する
     if (!currentValue || !operator || !nextValue) { return }
     const newDisplayValue = performOperation(currentValue, nextValue, operator);
     setDisplayValue(newDisplayValue);
@@ -36,13 +37,12 @@ function App() {
   };
 
   const handleOperator = (buttonName) => {
-    if (!currentValue || !operator || !nextValue) {
-      setOperator(buttonName);
-      return;
+    // Note: 3つ全てtrueであれば計算する を明記するため 常にtrueである currentValue も記載する
+    if (currentValue && operator && nextValue) {
+      const newDisplayValue = performOperation(currentValue, nextValue, operator);
+      setDisplayValue(newDisplayValue);
+      setCurrentValue(newDisplayValue);
     }
-    const newDisplayValue = performOperation(currentValue, nextValue, operator);
-    setDisplayValue(newDisplayValue);
-    setCurrentValue(newDisplayValue);
     setOperator(buttonName);
     setNextValue(null);
   };
