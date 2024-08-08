@@ -1,4 +1,5 @@
 import React from "react";
+import Display from "./components/Display";
 import "./App.css";
 
 function App() {
@@ -12,9 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="display">
-        { 0 }
-      </div>
+      <Display value={ 0 } />
       <div className="button-panel">
         { buttons.map((row, rowIndex) => (
           <div key={ rowIndex } className="button-row">
