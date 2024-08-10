@@ -58,6 +58,18 @@ function Calculator() {
     setNextValue(null);
   };
 
+  const handleSignSwitch = () => {
+    if (nextValue) {
+      const newNextValue = nextValue * -1;
+      setNextValue(newNextValue);
+      setDisplayValue(newNextValue);
+    } else {
+      const newCurrentValue = currentValue * -1;
+      setCurrentValue(newCurrentValue);
+      setDisplayValue(newCurrentValue);
+    }
+  };
+
   const handleDecimal = () => {
     if (operator) {
       if (nextValue && nextValue.includes(".")) { return }
@@ -93,6 +105,8 @@ function Calculator() {
       handleEqual();
     } else if (["+", "-", "*", "/"].includes(buttonName)) {
       handleOperator(buttonName);
+    } else if (buttonName === "+/-") {
+      handleSignSwitch();
     } else if (buttonName === ".") {
       handleDecimal();
     } else {
