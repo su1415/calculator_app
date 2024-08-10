@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Display from "./Display";
 import ButtonPanel from "./ButtonPanel";
 
@@ -7,6 +7,18 @@ function Calculator() {
   const [currentValue, setCurrentValue] = useState("0");
   const [operator, setOperator] = useState(null);
   const [nextValue, setNextValue] = useState(null);
+
+  useEffect(() => {
+    if (typeof currentValue !== "string") {
+      setCurrentValue(String(currentValue));
+    }
+  }, [currentValue]);
+
+  useEffect(() => {
+    if (nextValue !== null && typeof nextValue !== "string") {
+      setCurrentValue(String(nextValue));
+    }
+  }, [nextValue]);
 
   const performOperation = (left, right, operator) => {
     const a = Number(left);
@@ -46,6 +58,20 @@ function Calculator() {
     setNextValue(null);
   };
 
+  const handleDecimal = () => {
+    if (operator) {
+      if (nextValue && nextValue.includes(".")) { return }
+      const newNextValue = nextValue ? nextValue + "." : "0.";
+      setNextValue(newNextValue);
+      setDisplayValue(newNextValue);
+    } else {
+      if (currentValue.includes(".")) { return }
+      const newCurrentValue = currentValue + ".";
+      setCurrentValue(newCurrentValue);
+      setDisplayValue(newCurrentValue);
+    }
+  };
+
   const handleNumber = (buttonName) => {
     if (operator) {
       const newNextValue = (nextValue === null || nextValue ==="0") ? buttonName : nextValue + buttonName;
@@ -67,6 +93,8 @@ function Calculator() {
       handleEqual();
     } else if (["+", "-", "*", "/"].includes(buttonName)) {
       handleOperator(buttonName);
+    } else if (buttonName === ".") {
+      handleDecimal();
     } else {
       handleNumber(buttonName);
     }
