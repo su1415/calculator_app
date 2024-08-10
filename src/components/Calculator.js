@@ -70,6 +70,20 @@ function Calculator() {
     }
   };
 
+  const handleBackSpace = () => {
+    if (operator) {
+      if (nextValue === null || nextValue === "0") { return }
+      const newNextValue = nextValue.length > 1 ? nextValue.slice(0, -1) : "0";
+      setNextValue(newNextValue);
+      setDisplayValue(newNextValue);
+    } else {
+      if (currentValue === "0") { return }
+      const newCurrentValue = currentValue.length > 1 ? currentValue.slice(0, -1) : "0";
+      setCurrentValue(newCurrentValue);
+      setDisplayValue(newCurrentValue);
+    }
+  };
+
   const handleDecimal = () => {
     if (operator) {
       if (nextValue && nextValue.includes(".")) { return }
@@ -107,6 +121,8 @@ function Calculator() {
       handleOperator(buttonName);
     } else if (buttonName === "+/-") {
       handleSignSwitch();
+    } else if (buttonName === "←") {
+      handleBackSpace();
     } else if (buttonName === ".") {
       handleDecimal();
     } else {
