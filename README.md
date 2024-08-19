@@ -1,18 +1,10 @@
-# Getting Started with Create React App
+## 実装経緯
 
-## Available Scripts
+React の学習用に作成
 
-In the project directory, you can run:
+## 機能詳細
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
+* 演算子：演算子をクリックした後、他の演算子をクリックすると演算子を上書きする
+* C: 式全体をクリアする
+* ←: 直前の入力値を1文字削除する、演算子は削除しない
+* +/-: 符号を反転する
